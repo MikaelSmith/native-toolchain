@@ -1,0 +1,29 @@
+From 1ae0e39b4f134c8d488782d857560a3606efe1e2 Mon Sep 17 00:00:00 2001
+From: Michael Smith <michael.smith@cloudera.com>
+Date: Fri, 16 Jun 2023 14:27:28 -0700
+Subject: [PATCH] Quiet run-clang-tidy invocation output
+
+Avoids printing the clang-tidy command when run with -quiet. During a
+successful run, the only output in this mode is from clang-tidy itself.
+---
+ clang-tools-extra/clang-tidy/tool/run-clang-tidy.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py b/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
+index 313ecd2f9571..31259ae74670 100755
+--- a/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
++++ b/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
+@@ -172,7 +172,9 @@ def run_tidy(args, tmpdir, build_path, queue, lock, failed_files):
+     if proc.returncode != 0:
+       failed_files.append(name)
+     with lock:
+-      sys.stdout.write(' '.join(invocation) + '\n' + output.decode('utf-8'))
++      if not args.quiet:
++        sys.stdout.write(' '.join(invocation) + '\n')
++      sys.stdout.write(output.decode('utf-8'))
+       if len(err) > 0:
+         sys.stdout.flush()
+         sys.stderr.write(err.decode('utf-8'))
+-- 
+2.39.2 (Apple Git-143)
+

@@ -13,12 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Builds LLVM 3.7 and later from source tarballs.
+# Builds LLVM 6 and later from unified source tarball.
 
 set -eu
 set -o pipefail
 
-function build_llvm() {
+function build_unified_llvm() {
   # Cleanup possible leftovers
   rm -Rf "$THIS_DIR/${PACKAGE_STRING}.src"
   rm -Rf "$THIS_DIR/build-${PACKAGE_STRING}"
@@ -28,35 +28,14 @@ function build_llvm() {
   # desired archives in the appropriate places, and then use
   # setup_extracted_package_build, which can then apply patches across the whole
   # source tree.
-  EXTRACTED_DIR="llvm-${SOURCE_VERSION}.src"
+  EXTRACTED_DIR="llvm-project-${SOURCE_VERSION}.src"
   TARGET_DIR="$PACKAGE_STRING.src"
 
-  extract_archive "$THIS_DIR/llvm-${SOURCE_VERSION}.src.${ARCHIVE_EXT}"
+  extract_archive "$THIS_DIR/llvm-project-${SOURCE_VERSION}.src.${ARCHIVE_EXT}"
   if [ "$EXTRACTED_DIR" != "$TARGET_DIR" ]; then
+    echo "Moving $EXTRACTED_DIR to $TARGET_DIR"
     mv "$EXTRACTED_DIR" "$TARGET_DIR"
   fi
-  pushd "$TARGET_DIR"
-
-  pushd tools
-  # CLANG
-  extract_archive ${THIS_DIR}/cfe-$SOURCE_VERSION.src.tar.xz
-  mv cfe-$SOURCE_VERSION.src clang
-
-  # CLANG Extras
-  pushd clang/tools
-  extract_archive ${THIS_DIR}/clang-tools-extra-$SOURCE_VERSION.src.tar.xz
-  mv clang-tools-extra-$SOURCE_VERSION.src extra
-  popd
-
-  # COMPILER RT
-  # Required for *Sanitizers and for using Clang's own C/C++ runtime.
-  pushd ../projects
-  extract_archive ${THIS_DIR}/compiler-rt-$SOURCE_VERSION.src.tar.xz
-  mv compiler-rt-$SOURCE_VERSION.src compiler-rt
-  popd
-
-  popd # tools
-  popd # $TARGET_DIR
 
   # Patches are based on source version. Pass to setup_extracted_package_build function
   # with this var.
@@ -64,12 +43,7 @@ function build_llvm() {
 
   setup_extracted_package_build $PACKAGE $PACKAGE_VERSION $TARGET_DIR
 
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    export CXX=
-    export CC=
-    export CXXFLAGS=
-    export LDFLAGS=
-  fi
+  PYTHON3_ROOT_DIR=$BUILD_DIR/python-$PYTHON3_VERSION/
 
   mkdir -p ${THIS_DIR}/build-$PACKAGE_STRING
   pushd ${THIS_DIR}/build-$PACKAGE_STRING
@@ -88,6 +62,8 @@ function build_llvm() {
   else
     LLVM_BUILD_TARGET+="X86"
   fi
+
+  LLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld"
 
   # Disable some builds we don't care about.
   for arg in \
@@ -160,10 +136,11 @@ function build_llvm() {
   done
 
   # Invoke CMake with the correct configuration
-  wrap cmake ${THIS_DIR}/$PACKAGE_STRING.src${PATCH_VERSION} \
+  wrap cmake ${THIS_DIR}/$PACKAGE_STRING.src${PATCH_VERSION}/llvm \
       -DCMAKE_BUILD_TYPE=${LLVM_BUILD_TYPE} \
       -DCMAKE_INSTALL_PREFIX=$LOCAL_INSTALL \
       -DLLVM_TARGETS_TO_BUILD=$LLVM_BUILD_TARGET \
+      -DLLVM_ENABLE_PROJECTS=$LLVM_ENABLE_PROJECTS \
       -DLLVM_ENABLE_RTTI=ON \
       -DLLVM_ENABLE_TERMINFO=OFF \
       -DLLVM_INCLUDE_DOCS=OFF \
@@ -171,13 +148,10 @@ function build_llvm() {
       -DLLVM_INCLUDE_TESTS=OFF \
       -DLLVM_PARALLEL_COMPILE_JOBS=${BUILD_THREADS:-4} \
       -DLLVM_PARALLEL_LINK_JOBS=${BUILD_THREADS:-4} \
+      -DPython3_ROOT_DIR=$PYTHON3_ROOT_DIR \
       ${EXTRA_CMAKE_ARGS}
 
-  wrap make -j${BUILD_THREADS:-4} --load-average=${BUILD_THREADS:-4} install
-  popd
-
-  pushd ${THIS_DIR}/build-$PACKAGE_STRING/tools/clang
-  wrap make -j${BUILD_THREADS:-4} --load-average=${BUILD_THREADS:-4} install
+  wrap make -j${BUILD_THREADS:-4} install
   popd
 
   finalize_package_build $PACKAGE $PACKAGE_VERSION

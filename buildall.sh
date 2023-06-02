@@ -65,6 +65,9 @@ export -n BZIP2_VERSION
 (
   LLVM_VERSION=5.0.1-p7 $SOURCE_DIR/source/llvm/build.sh
   LLVM_VERSION=5.0.1-asserts-p7 $SOURCE_DIR/source/llvm/build.sh
+  export PYTHON3_VERSION=3.7.16
+  LLVM_VERSION=12.0.1-p1 $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=12.0.1-asserts-p1 $SOURCE_DIR/source/llvm/build.sh
 )
 
 ################################################################################

@@ -31,13 +31,27 @@ fi
 ARCHIVE_EXT="tar.xz"
 
 if needs_build_package ; then
-  download_dependency $PACKAGE "cfe-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
-  download_dependency $PACKAGE "clang-tools-extra-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
-  download_dependency $PACKAGE "compiler-rt-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
-  download_dependency $PACKAGE "llvm-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
+  if [[ $SOURCE_VERSION =~ ^5\.0\..* ]]; then
+    echo "Downloading LLVM 5 tarballs"
+    download_dependency $PACKAGE "cfe-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
+    download_dependency $PACKAGE "clang-tools-extra-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
+    download_dependency $PACKAGE "compiler-rt-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
+    download_dependency $PACKAGE "llvm-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
+  else
+    echo "Downloading LLVM 6+ unified tarball"
+    download_dependency $PACKAGE "llvm-project-${SOURCE_VERSION}.src.${ARCHIVE_EXT}" $THIS_DIR
+  fi
 
   add_gcc_to_ld_library_path
-  . $SOURCE_DIR/source/llvm/build-source-tarball.sh
-  cd $SOURCE_DIR/source/llvm
-  build_llvm
+  if [[ $SOURCE_VERSION =~ ^5\.0\..* ]]; then
+    echo "Building LLVM 5"
+    . $SOURCE_DIR/source/llvm/build-source-tarball.sh
+    cd $SOURCE_DIR/source/llvm
+    build_llvm
+  else
+    echo "Building LLVM 6+"
+    . $SOURCE_DIR/source/llvm/build-unified-tarball.sh
+    cd $SOURCE_DIR/source/llvm
+    build_unified_llvm
+  fi
 fi
