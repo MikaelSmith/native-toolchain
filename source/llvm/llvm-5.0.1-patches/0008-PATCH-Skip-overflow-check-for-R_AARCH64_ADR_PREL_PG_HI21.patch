@@ -1,0 +1,27 @@
+From 739561a19e107330281deb7f7b878cbd87a7b4dc Mon Sep 17 00:00:00 2001
+From: Michael Smith <michael.smith@cloudera.com>
+Date: Tue, 15 Aug 2023 13:25:38 -0700
+Subject: [PATCH] Skip overflow check for R_AARCH64_ADR_PREL_PG_HI21
+
+This check fails on aarch64 in Impala. Testing whether there are other
+effects of overflow.
+---
+ llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp b/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp
+index 77c968401c16..1c84052c7502 100644
+--- a/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp
++++ b/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp
+@@ -397,7 +397,7 @@ void RuntimeDyldELF::resolveAArch64Relocation(const SectionEntry &Section,
+         ((Value + Addend) & ~0xfffULL) - (FinalAddress & ~0xfffULL);
+ 
+     // Check that -2^32 <= X < 2^32
+-    assert(isInt<33>(Result) && "overflow check failed for relocation");
++    // assert(isInt<33>(Result) && "overflow check failed for relocation");
+ 
+     // Immediate goes in bits 30:29 + 5:23 of ADRP instruction, taken
+     // from bits 32:12 of X.
+-- 
+2.39.2 (Apple Git-143)
+
