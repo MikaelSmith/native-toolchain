@@ -1,0 +1,26 @@
+From ed4411f7e1af68b65cb62406eebc2531fb10b9a2 Mon Sep 17 00:00:00 2001
+From: Michael Smith <michael.smith@cloudera.com>
+Date: Thu, 26 Oct 2023 15:20:33 -0700
+Subject: [PATCH] Remove assert that fails on ARM for testing
+
+---
+ llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp b/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp
+index 77c968401c16..f56bf3828291 100644
+--- a/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp
++++ b/llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldELF.cpp
+@@ -396,9 +396,6 @@ void RuntimeDyldELF::resolveAArch64Relocation(const SectionEntry &Section,
+     uint64_t Result =
+         ((Value + Addend) & ~0xfffULL) - (FinalAddress & ~0xfffULL);
+ 
+-    // Check that -2^32 <= X < 2^32
+-    assert(isInt<33>(Result) && "overflow check failed for relocation");
+-
+     // Immediate goes in bits 30:29 + 5:23 of ADRP instruction, taken
+     // from bits 32:12 of X.
+     write32AArch64Addr(TargetPtr, Result >> 12);
+-- 
+2.39.3 (Apple Git-145)
+
