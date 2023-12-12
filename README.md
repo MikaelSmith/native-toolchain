@@ -27,17 +27,38 @@ For example, if you want to download the gcc source manually, find the
 gcc-4.9.2.tar.gz archive and copy it to source/gcc. If the file is present it
 will not be downloaded again.
 
+# Bootstrapping
+
+Toolchain builds are produced and uploaded to an S3 bucket provided by Cloudera
+regularly for use in Impala. You can speed up bootstrapping a build to test
+specific changes by downloading the compilation tools and dependencies from
+an existing build. This requires a TOOLCHAIN_BUILD_ID, which can be found in
+https://github.com/apache/impala/blob/master/bin/impala-config.sh.
+
+To fetch compilation tools, run
+
+    ./fetch.sh <toolchain_id>
+
+Then download specific packages with
+
+    ./fetch.sh <toolchain_id> package package.version
+
+For example
+
+    ./fetch.sh 8-62067ab072
+    ./fetch.sh 8-62067ab072 python 2.7.15 llvm 3.3-p5
+
 # Building a Specific Package
 
 To build a specific package run:
 
     ./build.sh package package.version
 
- for example:
+for example:
 
     ./build.sh python 2.7.15
 
- Its possible as well to build several packages at once.
+It's possible as well to build several packages at once.
 
     ./build.sh python 2.7.15 llvm 3.3-p5
 

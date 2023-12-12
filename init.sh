@@ -85,6 +85,9 @@ export SYSTEM_GCC
 : ${GCC_VERSION=10.4.0}
 export GCC_VERSION
 
+: ${GDB_VERSION=12.1}
+export GDB_VERSION
+
 : ${SYSTEM_CMAKE=0}
 export SYSTEM_CMAKE
 
