@@ -1,0 +1,12 @@
+diff -Naur boost_1_91_0/boost/locale/generator.hpp boost_1_91_0.mod/boost/locale/generator.hpp
+--- boost_1_91_0/boost/locale/generator.hpp	2025-04-03 04:37:26.000000000 -0700
++++ boost_1_91_0.mod/boost/locale/generator.hpp	2025-07-18 18:06:35.326201662 -0700
+@@ -98,7 +98,7 @@
+     ///
+     /// This class is used for specification of all parameters required for locale generation and
+     /// caching. This class const member functions are thread safe if locale class implementation is thread safe.
+-    class BOOST_LOCALE_DECL generator {
++    class BOOST_SYMBOL_EXPORT generator {
+     public:
+         /// Create new generator using global localization_backend_manager
+         generator();

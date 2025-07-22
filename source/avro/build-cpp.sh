@@ -24,18 +24,25 @@ prepare $THIS_DIR
 
 if needs_build_package ; then
   # Download the dependency from S3
-  download_dependency $PACKAGE "avro-src-${PACKAGE_VERSION}.tar.gz" $THIS_DIR
+  TARBALL_BASE_NAME="avro-release-${PACKAGE_VERSION}"
+  download_dependency $PACKAGE "${TARBALL_BASE_NAME}.tar.gz" $THIS_DIR
 
-  setup_package_build $PACKAGE $PACKAGE_VERSION
+  # Rename the directory from avro-release-VERSION to avro-VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION "${TARBALL_BASE_NAME}.tar.gz" \
+      "$TARBALL_BASE_NAME" $PACKAGE_STRING
 
-  BOOST_ROOT="${BUILD_DIR}"/boost-"${BOOST_VERSION}"
+  # Avro turns on all sorts of warnings with Werror. We don't want new versions
+  # of GCC to run into errors, so turn off Werror
+  CXXFLAGS="${CXXFLAGS} -Wno-error"
 
   cd lang/c++
   mkdir -p build
   cd build
+  # Avro only needs Boost if building the tests, so specify AVRO_BUILD_TESTS=OFF
+  # to avoid that dependency.
   wrap cmake -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$LOCAL_INSTALL \
-    -DBOOST_ROOT=${BOOST_ROOT} \
+    -DAVRO_BUILD_TESTS=OFF \
     ..
   wrap make VERBOSE=1 -C . -j${BUILD_THREADS:-4}
 

@@ -41,7 +41,7 @@ source ./init-compiler.sh
 ################################################################################
 # Boost
 ################################################################################
-BOOST_VERSION=1.74.0-p1 $SOURCE_DIR/source/boost/build.sh
+BOOST_VERSION=1.91.0-p1 $SOURCE_DIR/source/boost/build.sh
 
 ################################################################################
 # Build BZip2
@@ -116,7 +116,7 @@ CLOUDFLAREZLIB_VERSION=7aa510344e $SOURCE_DIR/source/cloudflarezlib/build.sh
 #  * depends on boost, zlib and openssl
 ################################################################################
 (
-  export BOOST_VERSION=1.74.0-p1
+  export BOOST_VERSION=1.91.0-p1
   export ZLIB_VERSION=1.3.1
   THRIFT_VERSION=0.11.0-p5 $SOURCE_DIR/source/thrift/build.sh
   THRIFT_VERSION=0.16.0-p7 $SOURCE_DIR/source/thrift/build.sh
@@ -198,11 +198,8 @@ OPENLDAP_VERSION=2.5.20 $SOURCE_DIR/source/openldap/build.sh
 # Build Avro
 ################################################################################
 AVRO_VERSION=1.7.4-p5 $SOURCE_DIR/source/avro/build.sh
-# Build a new version as well
-(
-  export BOOST_VERSION=1.74.0-p1
-  AVRO_VERSION=1.11.1-p1 $SOURCE_DIR/source/avro/build-cpp.sh
-)
+# Build the C++ library as well
+AVRO_VERSION=1.12.2-p1 $SOURCE_DIR/source/avro/build-cpp.sh
 
 ################################################################################
 # Build Rapidjson
@@ -228,7 +225,7 @@ FLATBUFFERS_VERSION=1.9.0-p1 $SOURCE_DIR/source/flatbuffers/build.sh
 # Build Kudu
 ################################################################################
 (
-  export BOOST_VERSION=1.74.0-p1
+  export BOOST_VERSION=1.91.0-p1
   # branch master, nov 19, with KUDU-3971
   export KUDU_VERSION=879a8f9e2
   if $SOURCE_DIR/source/kudu/build.sh is_supported_platform; then
