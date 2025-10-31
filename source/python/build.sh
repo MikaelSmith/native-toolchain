@@ -34,6 +34,10 @@ if needs_build_package ; then
   # build Python with bzip2
   BZIP2_ROOT="${BUILD_DIR}"/bzip2-"${BZIP2_VERSION}"
 
+  if [ "${PYTHON_VERSION:0:1}" = "2" ]; then
+    CFLAGS="$CFLAGS -std=gnu17"
+  fi
+
   # Python bakes the name of the C and C++ compilers into the package to be used for
   # building native packages. We want the defaults to be just the name of the compiler,
   # e.g. "gcc" and "g++" without any additional path, particularly not any temporary

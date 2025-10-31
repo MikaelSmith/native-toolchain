@@ -329,6 +329,7 @@ cmake ${LLVM_DIR} \
   -DLLVM_INCLUDE_TESTS=OFF \
   -DLLVM_PARALLEL_COMPILE_JOBS=${BUILD_THREADS:-4} \
   -DLLVM_PARALLEL_LINK_JOBS=4 \
+  -DCOMPILER_RT_SANITIZERS_TO_BUILD="tsan;asan" \
   ${EXTRA_CMAKE_ARGS}
 
 # Ninja's -l option behaves like make's --load-average option

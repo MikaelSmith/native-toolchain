@@ -130,6 +130,9 @@ if needs_build_package ; then
   # difference to the peak memory usage for a project as large as LLVM.
   PATH="${PATH}:${BUILD_DIR}/ninja-${NINJA_VERSION}/bin"
 
+  # GCC 14 turned this warning into an error. Disable the error to keep this building.
+  GCC_CFLAGS=" -Wno-error=implicit-function-declaration"
+
   if [[ "${PACKAGE_VERSION}" =~ "-pgo" ]]; then
     # Profile Guided Optimization only makes sense for a release build without asserts.
     # It performs three builds:
@@ -172,6 +175,9 @@ if needs_build_package ; then
       # written to a dedicated directory. This directory is specified by the
       # -fprofile-dir option.
       PROFILE_GEN_CFLAGS+=" -fprofile-dir=${PROFILE_OUT_DIR}"
+
+      # This is using GCC, so add the GCC flags
+      PROFILE_GEN_CFLAGS+="${GCC_CFLAGS}"
 
       # Turn off debug symbols for the regular release build. These symbols add 300+MB to
       # Impala's binary size. Oddly enough, the -asserts build doesn't have a similar
@@ -257,6 +263,9 @@ if needs_build_package ; then
       # regular compilation.
       PROFILE_USE_EXTRA_CMAKE_ARGS='-DCMAKE_REQUIRED_FLAGS="-Wno-missing-profile"'
 
+      # This is using GCC, so add the GCC flags
+      PROFILE_GEN_CFLAGS+="${GCC_CFLAGS}"
+
       # Turn off debug symbols for the regular release build. These symbols add 300+MB to
       # Impala's binary size. Oddly enough, the -asserts build doesn't have a similar
       # problem.
@@ -277,6 +286,7 @@ if needs_build_package ; then
     rm -rf "${THIS_DIR}/build-$PACKAGE_STRING"
     HELPER_ARGS+=" -build_dir ${THIS_DIR}/build-$PACKAGE_STRING"
     HELPER_ARGS+=" -install_dir ${LOCAL_INSTALL}"
+    HELPER_ARGS+=" -add_cflags ${GCC_CFLAGS} -add_cxxflags ${GCC_CFLAGS}"
     if [[ "${PACKAGE_VERSION}" =~ "-asserts" ]]; then
       # Always have minimal debug info for the asserts build
       HELPER_ARGS+=" -asserts"

@@ -1,0 +1,11 @@
+diff -Naur llvm-5.0.1.src/projects/compiler-rt/lib/xray/xray_buffer_queue.h llvm-5.0.1.src.patched/projects/compiler-rt/lib/xray/xray_buffer_queue.h
+--- llvm-5.0.1.src/projects/compiler-rt/lib/xray/xray_buffer_queue.h	2017-03-28 22:56:37.000000000 -0700
++++ llvm-5.0.1.src.patched/projects/compiler-rt/lib/xray/xray_buffer_queue.h	2022-07-16 22:12:13.362285733 -0700
+@@ -17,6 +17,7 @@
+￼
+ #include "sanitizer_common/sanitizer_atomic.h"
+ #include "sanitizer_common/sanitizer_mutex.h"
++#include <cstddef>
+ #include <deque>
+ #include <unordered_set>
+ #include <utility>

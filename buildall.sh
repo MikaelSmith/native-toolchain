@@ -71,8 +71,8 @@ NINJA_VERSION=1.13.2 $SOURCE_DIR/source/ninja/build.sh
 # release build with no assertions.
 (
   export NINJA_VERSION=1.13.2
-  LLVM_VERSION=5.0.1-p8 $SOURCE_DIR/source/llvm/build.sh
-  LLVM_VERSION=5.0.1-asserts-p8 $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=5.0.1-p9 $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=5.0.1-asserts-p9 $SOURCE_DIR/source/llvm/build.sh
   export PYTHON3_VERSION=3.11.14
   # This version is for compiling Impala, so it doesn't need to be compiled with
   # asserts. If we start using it for codegen, then we will need to add that.
