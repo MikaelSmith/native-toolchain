@@ -119,7 +119,7 @@ CLOUDFLAREZLIB_VERSION=7aa510344e $SOURCE_DIR/source/cloudflarezlib/build.sh
   export BOOST_VERSION=1.91.0-p1
   export ZLIB_VERSION=1.3.1
   THRIFT_VERSION=0.11.0-p5 $SOURCE_DIR/source/thrift/build.sh
-  THRIFT_VERSION=0.16.0-p7 $SOURCE_DIR/source/thrift/build.sh
+  THRIFT_VERSION=0.16.0-p8 $SOURCE_DIR/source/thrift/build.sh
 )
 
 ################################################################################
@@ -219,6 +219,7 @@ BREAKPAD_VERSION=e09741c609dcd5f5274d40182c5e2cc9a002d5ba-p3 $SOURCE_DIR/source/
 ################################################################################
 # Build Flatbuffers
 ################################################################################
+# String op overread
 FLATBUFFERS_VERSION=1.9.0-p1 $SOURCE_DIR/source/flatbuffers/build.sh
 
 ################################################################################

@@ -35,7 +35,7 @@ if needs_build_package ; then
   BZIP2_ROOT="${BUILD_DIR}"/bzip2-"${BZIP2_VERSION}"
 
   if [ "${PYTHON_VERSION:0:1}" = "2" ]; then
-    CFLAGS="$CFLAGS -std=gnu17"
+    CFLAGS="$CFLAGS -std=c99"
   fi
 
   # Python bakes the name of the C and C++ compilers into the package to be used for
