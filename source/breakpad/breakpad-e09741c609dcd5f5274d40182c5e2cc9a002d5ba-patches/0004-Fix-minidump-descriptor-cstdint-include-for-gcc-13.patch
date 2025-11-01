@@ -1,0 +1,11 @@
+diff -Naur breakpad-e09741c609dcd5f5274d40182c5e2cc9a002d5ba/src/client/linux/handler/minidump_descriptor.h breakpad-e09741c609dcd5f5274d40182c5e2cc9a002d5ba-patched/src/client/linux/handler/minidump_descriptor.h
+--- breakpad-e09741c609dcd5f5274d40182c5e2cc9a002d5ba/src/client/linux/handler/minidump_descriptor.h	2022-03-29 16:51:59.000000000 -0700
++++ breakpad-e09741c609dcd5f5274d40182c5e2cc9a002d5ba-patched/src/client/linux/handler/minidump_descriptor.h	2025-11-01 09:45:22.254493385 -0700
+@@ -33,6 +33,7 @@
+ #include <assert.h>
+ #include <sys/types.h>
+ 
++#include <cstdint>
+ #include <string>
+ 
+ #include "client/linux/handler/microdump_extra_info.h"
