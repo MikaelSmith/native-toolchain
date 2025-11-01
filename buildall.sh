@@ -206,7 +206,7 @@ AVRO_VERSION=1.12.2-p1 $SOURCE_DIR/source/avro/build-cpp.sh
 ################################################################################
 # Build Rapidjson
 ################################################################################
-RAPIDJSON_VERSION=1.1.0-p1 $SOURCE_DIR/source/rapidjson/build.sh
+RAPIDJSON_VERSION=1.1.0-p6 $SOURCE_DIR/source/rapidjson/build.sh
 
 ################################################################################
 # Build Libunwind
@@ -228,8 +228,10 @@ FLATBUFFERS_VERSION=1.9.0-p2 $SOURCE_DIR/source/flatbuffers/build.sh
 ################################################################################
 (
   export BOOST_VERSION=1.91.0-p1
-  # branch master, nov 19, with KUDU-3971
-  export KUDU_VERSION=879a8f9e2
+  # branch master, on Oct 3, 2025 with Java dependency and
+  # TLS 1.3, OpenSSL 3.x fixes and updates
+  export KUDU_GITHUB_URL=https://github.com/joemcdonnell/kudu.git
+  export KUDU_VERSION=f39db99d2
   if $SOURCE_DIR/source/kudu/build.sh is_supported_platform; then
     $SOURCE_DIR/source/kudu/build.sh build
   else
