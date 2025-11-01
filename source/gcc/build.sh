@@ -28,7 +28,7 @@ if [[  $GCC_MAJOR_VERSION == '10' ]]; then
   GMP_VERSION=6.1.0
   MPC_VERSION=1.0.3
   ISL_VERSION=0.18
-elif [[ $GCC_MAJOR_VERSION == '15' ]]; then
+elif [[ $GCC_MAJOR_VERSION == '14' || $GCC_MAJOR_VERSION == '15' ]]; then
   MPFR_VERSION=4.1.0
   GMP_VERSION=6.2.1
   MPC_VERSION=1.2.1

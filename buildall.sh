@@ -153,12 +153,14 @@ SNAPPY_VERSION=1.1.8 $SOURCE_DIR/source/snappy/build.sh
 ################################################################################
 LZ4_VERSION=1.9.3 $SOURCE_DIR/source/lz4/build.sh
 LZ4_VERSION=1.9.4 $SOURCE_DIR/source/lz4/build.sh
+LZ4_VERSION=1.10.0 $SOURCE_DIR/source/lz4/build.sh
 
 ################################################################################
 # Build Zstd
 ################################################################################
 ZSTD_VERSION=1.5.2 $SOURCE_DIR/source/zstd/build.sh
 ZSTD_VERSION=1.5.5 $SOURCE_DIR/source/zstd/build.sh
+ZSTD_VERSION=1.5.7 $SOURCE_DIR/source/zstd/build.sh
 
 ################################################################################
 # Build Abseil
@@ -214,13 +216,12 @@ LIBUNWIND_VERSION=1.7.2-p1 $SOURCE_DIR/source/libunwind/build.sh
 ################################################################################
 # Build Breakpad
 ################################################################################
-BREAKPAD_VERSION=e09741c609dcd5f5274d40182c5e2cc9a002d5ba-p3 $SOURCE_DIR/source/breakpad/build.sh
+BREAKPAD_VERSION=e09741c609dcd5f5274d40182c5e2cc9a002d5ba-p4 $SOURCE_DIR/source/breakpad/build.sh
 
 ################################################################################
 # Build Flatbuffers
 ################################################################################
-# String op overread
-FLATBUFFERS_VERSION=1.9.0-p1 $SOURCE_DIR/source/flatbuffers/build.sh
+FLATBUFFERS_VERSION=1.9.0-p2 $SOURCE_DIR/source/flatbuffers/build.sh
 
 ################################################################################
 # Build Kudu
@@ -255,7 +256,7 @@ TPC_DS_VERSION=2.1.0-p1 $SOURCE_DIR/source/tpc-ds/build.sh
   export SNAPPY_VERSION=1.1.8
   export ZLIB_VERSION=1.3.1
   export ZSTD_VERSION=1.5.2
-  ORC_VERSION=1.7.9-p11 $SOURCE_DIR/source/orc/build.sh
+  ORC_VERSION=1.7.9-p12 $SOURCE_DIR/source/orc/build.sh
 )
 
 ################################################################################

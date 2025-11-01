@@ -34,6 +34,8 @@ if needs_build_package ; then
   # build Python with bzip2
   BZIP2_ROOT="${BUILD_DIR}"/bzip2-"${BZIP2_VERSION}"
 
+  # GCC 15 switches to C23 by default. Python 2 doesn't explicitly set the C version,
+  # so it needs to be set to C99 to compile. Python 3 sets the C version explicitly.
   if [ "${PYTHON_VERSION:0:1}" = "2" ]; then
     CFLAGS="$CFLAGS -std=c99"
   fi
