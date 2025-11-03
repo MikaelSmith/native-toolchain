@@ -231,7 +231,7 @@ FLATBUFFERS_VERSION=1.9.0-p2 $SOURCE_DIR/source/flatbuffers/build.sh
   # branch master, on Oct 3, 2025 with Java dependency and
   # TLS 1.3, OpenSSL 3.x fixes and updates
   export KUDU_GITHUB_URL=https://github.com/joemcdonnell/kudu.git
-  export KUDU_VERSION=ddf03ab79
+  export KUDU_VERSION=205685ff8
   if $SOURCE_DIR/source/kudu/build.sh is_supported_platform; then
     $SOURCE_DIR/source/kudu/build.sh build
   else
