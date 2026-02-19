@@ -56,6 +56,8 @@ if needs_build_package ; then
   # Assert that important packages were built successfully. Some modules are changed in Python 3.
   if [ "${PYTHON_VERSION:0:1}" = "2" ]; then
     wrap $LOCAL_INSTALL/bin/python2 -c 'import bz2; import readline; from urllib2 import HTTPSHandler; from httplib import HTTPConnection'
+    # Thrift 0.22.0 installs with pip, but still requires Python 2.
+    wrap $LOCAL_INSTALL/bin/python2 -m ensurepip
   else
     wrap $LOCAL_INSTALL/bin/python3 -c 'import bz2; import readline; from urllib.request import HTTPSHandler; from http.client import HTTPConnection'
   fi

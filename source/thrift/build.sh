@@ -46,11 +46,7 @@ if needs_build_package ; then
     wrap aclocal -I ./aclocal
     wrap glibtoolize --copy
     wrap autoconf
-  else
-     # Based on https://github.com/facebook/fbthrift/issues/222
-     # but we don't run autoconf.
-     sed -i 's/BN_init/BN_new/g' configure
-   fi
+  fi
 
 
   # LEXLIB= is a Workaround /usr/lib64/libfl.so: undefined reference to `yylex'
@@ -73,7 +69,6 @@ if needs_build_package ; then
     --with-csharp=no \
     --with-ruby=no \
     --with-haskell=no \
-    --with-erlang=no \
     --with-d=no \
     --with-boost="${BOOST_ROOT}" \
     --with-zlib="${ZLIB_ROOT}" \
@@ -85,6 +80,8 @@ if needs_build_package ; then
     --with-rs=no \
     --with-dotnetcore=no \
     --with-netstd=no \
+    --with-kotlin=no \
+    --with-swift=no \
     ${PIC_LIB_OPTIONS:-} \
     ${CONFIGURE_FLAG_BUILD_SYS}
   # The error code is zero if one or more libraries can be built. To ensure that C++
