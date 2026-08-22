@@ -55,8 +55,6 @@ BZIP2_VERSION=1.0.8-p2 $SOURCE_DIR/source/bzip2/build.sh
   export BZIP2_VERSION=1.0.8-p2
   PYTHON_VERSION=3.8.18 $SOURCE_DIR/source/python/build.sh
   PYTHON_VERSION=3.11.14 $SOURCE_DIR/source/python/build.sh
-  PYTHON_VERSION=3.12.12 $SOURCE_DIR/source/python/build.sh
-  PYTHON_VERSION=3.13.12 $SOURCE_DIR/source/python/build.sh
 )
 
 ################################################################################
@@ -67,16 +65,11 @@ NINJA_VERSION=1.13.2 $SOURCE_DIR/source/ninja/build.sh
 ################################################################################
 # LLVM
 ################################################################################
-# Build LLVM 3.7+ with and without assertions. For LLVM 3.7+, the default is a
-# release build with no assertions.
 (
   export NINJA_VERSION=1.13.2
-  LLVM_VERSION=5.0.1-p8 $SOURCE_DIR/source/llvm/build.sh
-  LLVM_VERSION=5.0.1-asserts-p8 $SOURCE_DIR/source/llvm/build.sh
   export PYTHON3_VERSION=3.11.14
-  # This version is for compiling Impala, so it doesn't need to be compiled with
-  # asserts. If we start using it for codegen, then we will need to add that.
-  LLVM_VERSION=12.0.1 $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=15.0.7 $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=15.0.7-asserts $SOURCE_DIR/source/llvm/build.sh
 )
 
 ################################################################################
