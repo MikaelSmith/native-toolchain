@@ -37,8 +37,8 @@ if needs_build_package; then
 
   setup_package_build $PACKAGE $PACKAGE_VERSION
 
-  export CFLAGS="${CFLAGS} -fno-lto"
-  export CXXFLAGS="${CXXFLAGS} -fno-lto"
+  #export CFLAGS="${CFLAGS} -fno-lto"
+  #export CXXFLAGS="${CXXFLAGS} -fno-lto"
 
   rm -rf build
   mkdir build
