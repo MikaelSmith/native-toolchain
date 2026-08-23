@@ -72,8 +72,8 @@ NINJA_VERSION=1.13.2 $SOURCE_DIR/source/ninja/build.sh
 (
   export NINJA_VERSION=1.13.2
   export PYTHON3_VERSION=3.11.14
-  LLVM_VERSION=17.0.6-pgo $SOURCE_DIR/source/llvm/build.sh
-  LLVM_VERSION=17.0.6-asserts $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=19.1.1-pgo $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=19.1.1-asserts $SOURCE_DIR/source/llvm/build.sh
 )
 
 ################################################################################
