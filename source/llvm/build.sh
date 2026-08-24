@@ -168,6 +168,12 @@ if needs_build_package ; then
       PROFILE_GEN_CFLAGS="-fprofile-generate"
       PROFILE_GEN_LDFLAGS="-fprofile-generate"
 
+      if [[ "$(uname -m)" == "aarch64" ]]; then
+        # ARM uses moutline-atomics and the profile generation requires the atomics
+        # library to be linked in. Manually add the atomic library.
+        PROFILE_GEN_LDFLAGS="${PROFILE_GEN_LDFLAGS} -latomic"
+      fi
+
       # The profile data is written as .gcda files. By default, these are put in
       # the same directory as the .o files. For these builds, the .o files are in
       # the build directory. It's easiest to wipe out the build directory when we
