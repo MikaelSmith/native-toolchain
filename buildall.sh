@@ -225,10 +225,11 @@ FLATBUFFERS_VERSION=1.9.0-p2 $SOURCE_DIR/source/flatbuffers/build.sh
 ################################################################################
 (
   export BOOST_VERSION=1.91.0-p1
-  # branch master, on Oct 3, 2025 with Java dependency and
-  # TLS 1.3, OpenSSL 3.x fixes and updates
+  # branch master, nov 19, with KUDU-3971 (879a8f9e2) plus patches to
+  # fix building with GCC 15 (particularly the thirdparty builds of postgres and
+  # rocksdb).
   export KUDU_GITHUB_URL=https://github.com/joemcdonnell/kudu.git
-  export KUDU_VERSION=7e5c3186d
+  export KUDU_VERSION=44b045662
   if $SOURCE_DIR/source/kudu/build.sh is_supported_platform; then
     $SOURCE_DIR/source/kudu/build.sh build
   else
