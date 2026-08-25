@@ -229,7 +229,7 @@ FLATBUFFERS_VERSION=1.9.0-p2 $SOURCE_DIR/source/flatbuffers/build.sh
   # fix building with GCC 15 (particularly the thirdparty builds of postgres and
   # rocksdb).
   export KUDU_GITHUB_URL=https://github.com/joemcdonnell/kudu.git
-  export KUDU_VERSION=44b045662
+  export KUDU_VERSION=19511f710
   if $SOURCE_DIR/source/kudu/build.sh is_supported_platform; then
     $SOURCE_DIR/source/kudu/build.sh build
   else
