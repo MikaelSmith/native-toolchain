@@ -187,7 +187,7 @@ if needs_build_package ; then
 
       # Turn off debug symbols for the regular release build. These symbols add 300+MB to
       # Impala's binary size. Oddly enough, the -asserts build doesn't have a similar
-      # problem.
+      # problem. This only builds clang and lld (skipping compiler-rt and clang-tools-extra).
       wrap ${THIS_DIR}/build-helper.sh ${HELPER_ARGS} \
         -build_dir "${LLVM_BUILD_DIR}" \
         -install_dir "${PROFILE_GEN_INSTALL_DIR}" \
@@ -195,7 +195,8 @@ if needs_build_package ; then
         -g0 \
         -add_cflags "${PROFILE_GEN_CFLAGS}" \
         -add_cxxflags "${PROFILE_GEN_CFLAGS}" \
-        -add_ldflags "${PROFILE_GEN_LDFLAGS}"
+        -add_ldflags "${PROFILE_GEN_LDFLAGS}" \
+        -llvm_enable_projects "clang;lld"
 
       wrap echo "######################## End PGO Build #1 ########################"
     )
