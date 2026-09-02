@@ -53,10 +53,7 @@ BZIP2_VERSION=1.0.8-p2 $SOURCE_DIR/source/bzip2/build.sh
 ################################################################################
 (
   export BZIP2_VERSION=1.0.8-p2
-  PYTHON_VERSION=3.8.18 $SOURCE_DIR/source/python/build.sh
   PYTHON_VERSION=3.11.14 $SOURCE_DIR/source/python/build.sh
-  PYTHON_VERSION=3.12.12 $SOURCE_DIR/source/python/build.sh
-  PYTHON_VERSION=3.13.12 $SOURCE_DIR/source/python/build.sh
 )
 
 ################################################################################
@@ -74,6 +71,9 @@ NINJA_VERSION=1.13.2 $SOURCE_DIR/source/ninja/build.sh
   export PYTHON3_VERSION=3.11.14
   LLVM_VERSION=19.1.1-pgo $SOURCE_DIR/source/llvm/build.sh
   LLVM_VERSION=19.1.1-asserts $SOURCE_DIR/source/llvm/build.sh
+  # For testing, latest LLVM release
+  LLVM_VERSION=22.1.8-pgo $SOURCE_DIR/source/llvm/build.sh
+  LLVM_VERSION=22.1.8-asserts $SOURCE_DIR/source/llvm/build.sh
 )
 
 ################################################################################
@@ -264,20 +264,17 @@ TPC_DS_VERSION=2.1.0-p1 $SOURCE_DIR/source/tpc-ds/build.sh
 # CCTZ
 ################################################################################
 CCTZ_VERSION=2.2 $SOURCE_DIR/source/cctz/build.sh
-CCTZ_VERSION=2.3 $SOURCE_DIR/source/cctz/build.sh
 CCTZ_VERSION=2.4 $SOURCE_DIR/source/cctz/build.sh
 
 ################################################################################
 # JWT-CPP
 ################################################################################
 JWT_CPP_VERSION=0.5.0 $SOURCE_DIR/source/jwt-cpp/build.sh
-JWT_CPP_VERSION=0.6.0 $SOURCE_DIR/source/jwt-cpp/build.sh
 JWT_CPP_VERSION=0.7.0 $SOURCE_DIR/source/jwt-cpp/build.sh
 
 ################################################################################
 # ARROW
 ################################################################################
-ARROW_VERSION=13.0.0 $SOURCE_DIR/source/arrow/build.sh
 ARROW_VERSION=15.0.0 $SOURCE_DIR/source/arrow/build.sh
 
 # CURL
