@@ -75,7 +75,7 @@ export CLEAN
 : ${CLEAN_TMP_AFTER_BUILD=0}
 export CLEAN_TMP_AFTER_BUILD
 
-: ${BINUTILS_VERSION=2.44}
+: ${BINUTILS_VERSION=with-gold-2.46.1}
 export BINUTILS_VERSION
 
 # Flag to determine the system compiler is used
