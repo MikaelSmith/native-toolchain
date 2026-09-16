@@ -1,4 +1,4 @@
-FROM rockylinux/rockylinux:10.1
+FROM rockylinux/rockylinux:10.2
 
 COPY ./redhat/adoptium.repo /etc/yum.repos.d/adoptium.repo
 
